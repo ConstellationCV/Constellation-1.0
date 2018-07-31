@@ -1,13 +1,12 @@
 from Input import Input
 
 class Neuron:
-	inputs = None
-	bias = None
+	inputs = None # holds a list of inputs (Input)
+	bias = None # holds the bias (float)
 
 	def __input__(self, inputs, bias):
 		"""Create new neuron with given inputs,
-		a random initial bias (0.01-1), and
-		a bias of bias
+		and a bias of bias
     	"""
 		self.inputs = inputs
 		self.bias = bias
@@ -30,44 +29,37 @@ class Neuron:
 		"""Return the final output
 		of the activation passed through
 		the activation function, in this case
-		sigmoid
-    	"""
+		sigmoid"""
     	return sigmoid(getActivation())
 
     def sigmoid(activation):
     	"""Return the output of the
     	sigmoid activation fucntion
-    	given an activation
-    	"""
+    	given an activation"""
     	return 1.0/(1+ np.exp(-x))
 
    	def sigmoid_derivative(input):
    		"""Return the sigmoid derivative
-   		for backprogatation
-    	"""
+   		for backprogatation"""
    		return x * (1.0 - x)
 
 	def setInputs(newInputs):
 		"""Setter function used
 		for adjusting the set of
-		inputs
-    	"""
+		inputs"""
 		self.inputs = newInputs
 
 	def setBias(newBias):
 		"""Setter funciton used for
-		changing the bias of a neuron
-    	"""
+		changing the bias of a neuron"""
 		self.bias = newBias
 
 	def getInputs():
 		"""Return the list of
-		inputs
-    	"""
+		inputs"""
 		return inputs
 
 	def getBias():
 		"""Return the bias of
-		a neuron
-    	"""
+		a neuron"""
 		return bias
