@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import os
 import math
+import json
 
 class Trainer:
     def createAllFrameImages(self, videoFileName, outFolderPath):
@@ -32,7 +33,7 @@ class Trainer:
         cap.release()
         cv2.destroyAllWindows()
 
-    def createIntervalFrameImages(self, videoFileName, outFolderPath, objectName):
+    def createIntervalFrameImages(self, videoFileName, outFolderPath, objectName, objectID):
         videoFile = videoFileName
         outFolderPath = "../data/"+outFolderPath
         imagesFolder = outFolderPath
@@ -50,7 +51,7 @@ class Trainer:
                 break
             if (frameId % math.floor(frameRate) == 10 or frameId % math.floor(frameRate) == 20 or frameId % math.floor(frameRate) == 30
                 or frameId % math.floor(frameRate) == 40 or frameId % math.floor(frameRate) == 50):
-                filename = imagesFolder + "/" + objectName + "_image_" +  str(int(frameId)) + ".png"
+                filename = imagesFolder + "/" + objectName + "_" + objectID + "_image_" +  str(int(frameId)) + ".png"
                 cv2.imwrite(filename, frame)
         cap.release()
 
@@ -64,17 +65,24 @@ class Trainer:
                 continue
         return list
 
-    def createListOfImageTemplates(self, listOfNames, imageStorageDirectoryPath):
+    def createListOfImageTemplates(self, objectName, imageStorageDirectoryPath):
         list = []
+        listOfNames = self.createListOfImageNames(imageStorageDirectoryPath, objectName)
         imageStorageDirectoryPath = "../data/"+imageStorageDirectoryPath+"/"
         for name in listOfNames:
             list.append(cv2.cvtColor(cv2.imread(imageStorageDirectoryPath + name),cv2.COLOR_BGR2GRAY))
+        with open('../data/DO_NOT_TOUCH/indexed_objects.json') as f:
+            data = json.load(f)
+        lastKey = -1
+        alreadyIn = False
+        for key in data:
+            lastKey = int(key)
+            if data[key] == objectName:
+                alreadyIn = True
+        if not alreadyIn:
+            newKey = str(lastKey+1)
+            a_dict = {newKey:objectName}
+            data.update(a_dict)
+            with open('../data/DO_NOT_TOUCH/indexed_objects.json', 'w') as f:
+                json.dump(data, f)
         return list
-
-    def trainOnImages(self, pathToImageFolder):
-        #create templates to match to
-        print("not yet implemented")
-
-
-#t = Trainer()
-#t.createAllFrameImages('shorter.mov')

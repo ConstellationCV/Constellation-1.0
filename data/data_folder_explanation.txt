@@ -1,3 +1,9 @@
+IMPORTANT NOTE:
+PLEASE DO NOT TOUCH ANYTHING
+IN THE "DO_NOT_TOUCH" FOLDER
+AS DOING THAT WILL CAUSE
+CONSTELLATION TO MALFUNCTION
+
 The 'data' directory is where
 various data (in the form of
 images, video, and other files)

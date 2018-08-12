@@ -1,7 +1,22 @@
 import cv2
 import numpy as np
+import json
 
 class Extractor:
+	def findAllObjects(self, imagePath, templateListList, confidenceThreshold):
+		objsDict = dict()
+		templateListListIndex = 0
+		with open('../data/DO_NOT_TOUCH/indexed_objects.json') as f:
+			data = json.load(f)
+		for key in sorted(data):
+			tempObjectName = data[key]
+			objsDict[tempObjectName] = self.getObjectLoc(imagePath, templateListList[int(key)], confidenceThreshold)
+			templateListListIndex = templateListListIndex+1
+		return objsDict
+
+	def getObjectLoc(self, imagePath, templateList, confidenceThreshold):
+		return min(min(self.getMatchingPoints(imagePath,templateList,confidenceThreshold)))
+
 	def getMatchingPoints(self, imagePath, templateList, confidenceThreshold):
 		list = []
 		img_rgb = cv2.imread(imagePath)
