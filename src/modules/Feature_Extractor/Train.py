@@ -6,7 +6,7 @@ import math
 class Trainer:
     def createAllFrameImages(self, videoFileName, outFolderPath):
         # Playing video from file:
-        outFolderPath = "../../../data/"+outFolderPath
+        outFolderPath = "../data/"+outFolderPath
         cap = cv2.VideoCapture(videoFileName)
 
         try:
@@ -34,7 +34,7 @@ class Trainer:
 
     def createIntervalFrameImages(self, videoFileName, outFolderPath, objectName):
         videoFile = videoFileName
-        outFolderPath = "../../../data/"+outFolderPath
+        outFolderPath = "../data/"+outFolderPath
         imagesFolder = outFolderPath
         try:
             if not os.path.exists(outFolderPath):
@@ -43,7 +43,6 @@ class Trainer:
             print ('Error: Creating directory of data')
         cap = cv2.VideoCapture(videoFile)
         frameRate = cap.get(5) #frame rate
-        print frameRate
         while(cap.isOpened()):
             frameId = cap.get(1) #current frame number
             ret, frame = cap.read()
@@ -54,19 +53,20 @@ class Trainer:
                 filename = imagesFolder + "/" + objectName + "_image_" +  str(int(frameId)) + ".png"
                 cv2.imwrite(filename, frame)
         cap.release()
-        print "Done!"
 
     def createListOfImageNames(self, directoryName, objectName):
         list = []
+        directoryName = "../data/"+directoryName
         for filename in os.listdir(directoryName):
             if objectName in filename:
-                list.append(directoryName)
+                list.append(filename)
             else:
                 continue
         return list
 
     def createListOfImageTemplates(self, listOfNames, imageStorageDirectoryPath):
         list = []
+        imageStorageDirectoryPath = "../data/"+imageStorageDirectoryPath+"/"
         for name in listOfNames:
             list.append(cv2.cvtColor(cv2.imread(imageStorageDirectoryPath + name),cv2.COLOR_BGR2GRAY))
         return list
