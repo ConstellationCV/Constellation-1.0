@@ -24,12 +24,14 @@ cv2.imwrite('outputMatches1.png',img_rgb)
 """
 
 class Extractor:
-	def getMatchingPoints(self, image, templateList, threshold):
+	def getMatchingPoints(self, imagePath, templateList, confidenceThreshold):
 		list = []
+		img_rgb = cv2.imread(imagePath)
+		image = cv2.cvtColor(img_rgb,cv2.COLOR_BGR2GRAY)
 		for template in templateList:
-			matches = vs2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
-			w,h = tempalte.shape[::-1]
-			loc = np.where(matches>=threshold)
+			matches = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
+			w,h = template.shape[::-1]
+			loc = np.where(matches>=confidenceThreshold)
 			for pt in zip(*loc[::-1]):
 				pointtpl = (pt[0]+(w/2),pt[1]+(h/2))
 				list.append(pointtpl)

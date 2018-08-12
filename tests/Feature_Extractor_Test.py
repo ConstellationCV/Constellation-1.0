@@ -7,3 +7,5 @@ e = Extractor()
 t = Trainer()
 t.createIntervalFrameImages("../data/test.mov", "out_dir", "cube")
 templateList = t.createListOfImageTemplates(t.createListOfImageNames("out_dir", "cube"), "out_dir")
+matchesList = e.getMatchingPoints( "../data/image.png", templateList, 0.955)
+print matchesList
