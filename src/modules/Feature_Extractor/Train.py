@@ -6,6 +6,7 @@ import math
 class Trainer:
     def createAllFrameImages(self, videoFileName, outFolderPath):
         # Playing video from file:
+        outFolderPath = "../../../data/"+outFolderPath
         cap = cv2.VideoCapture(videoFileName)
 
         try:
@@ -33,6 +34,7 @@ class Trainer:
 
     def createIntervalFrameImages(self, videoFileName, outFolderPath, objectName):
         videoFile = videoFileName
+        outFolderPath = "../../../data/"+outFolderPath
         imagesFolder = outFolderPath
         try:
             if not os.path.exists(outFolderPath):
