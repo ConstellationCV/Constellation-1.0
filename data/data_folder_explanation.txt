@@ -1,0 +1,11 @@
+The 'data' directory is where
+various data (in the form of
+images, video, and other files)
+which drives Constellation lives.
+As you use Constellation, this 
+folder will populate, depending on
+how you structure it, with items
+like the various objects you
+train Constellation to recognize
+or models of scenes which
+Constellation has constructed

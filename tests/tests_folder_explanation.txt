@@ -1,0 +1,6 @@
+The 'tests' directory contains
+some of the test files which
+the developers of Constellation
+have used and open-sourced for
+your use in order to help you
+understand how to use the library
