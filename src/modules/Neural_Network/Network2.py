@@ -1,6 +1,6 @@
 import random 
 import sys
-sys.path.insert(0, '/Users/prathamgandhi/Desktop/constellation/Constellation/src/modules/Arithmetic_Toolkit')
+sys.path.insert(0, '/path/to/Constellation/src/modules/Arithmetic_Toolkit')
 from Linear_Algebra import Vectors
 import math
 

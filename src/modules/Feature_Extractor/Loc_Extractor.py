@@ -1,6 +1,10 @@
 import cv2
 import numpy as np
 import json
+import time
+import sys
+sys.path.insert(0, '../src/exceptions')
+from CannotMatchError import CannotMatchError
 
 class Extractor:
 	def findAllObjects(self, imagePath, templateListList, confidenceThreshold):
@@ -15,12 +19,17 @@ class Extractor:
 		return objsDict
 
 	def getObjectLoc(self, imagePath, templateList, confidenceThreshold):
-		return min(min(self.getMatchingPoints(imagePath,templateList,confidenceThreshold)))
+		try:
+			return min(min(self.getMatchingPoints(imagePath,templateList,confidenceThreshold)))
+		except Exception as e:
+			raise ValueError('Cannot match object anywhere in image')
+		
 
 	def getMatchingPoints(self, imagePath, templateList, confidenceThreshold):
 		list = []
 		img_rgb = cv2.imread(imagePath)
 		image = cv2.cvtColor(img_rgb,cv2.COLOR_BGR2GRAY)
+		#start = time.time()
 		for template in templateList:
 			templateList = []
 			matches = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
@@ -30,6 +39,8 @@ class Extractor:
 				pointtpl = (pt[0]+(w/2),pt[1]+(h/2))
 				templateList.append(pointtpl)
 			list.append(templateList)
+		#end = time.time()
+		#print(end-start)
 		return self.cleanList(list)
 
 	def cleanList(self, list):

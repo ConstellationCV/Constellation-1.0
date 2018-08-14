@@ -42,18 +42,23 @@ class Trainer:
                 os.makedirs(outFolderPath)
         except OSError:
             print ('Error: Creating directory of data')
-        cap = cv2.VideoCapture(videoFile)
-        frameRate = cap.get(5) #frame rate
-        while(cap.isOpened()):
-            frameId = cap.get(1) #current frame number
-            ret, frame = cap.read()
-            if (ret != True):
+        alreadyDone = False
+        for filename in os.listdir("../data/"+outFolderPath):
+            if objectName + "_" + objectID in filename:
+                alreadyDone=True
                 break
-            if (frameId % math.floor(frameRate) == 10 or frameId % math.floor(frameRate) == 20 or frameId % math.floor(frameRate) == 30
-                or frameId % math.floor(frameRate) == 40 or frameId % math.floor(frameRate) == 50):
-                filename = imagesFolder + "/" + objectName + "_" + objectID + "_image_" +  str(int(frameId)) + ".png"
-                cv2.imwrite(filename, frame)
-        cap.release()
+        if not alreadyDone:
+            cap = cv2.VideoCapture(videoFile)
+            frameRate = cap.get(5) #frame rate
+            while(cap.isOpened()):
+                frameId = cap.get(1) #current frame number
+                ret, frame = cap.read()
+                if (ret != True):
+                    break
+                if (frameId % math.floor(frameRate) == 10 or frameId % math.floor(frameRate) == 50):
+                    filename = imagesFolder + "/" + objectName + "_" + objectID + "_image_" +  str(int(frameId)) + ".png"
+                    cv2.imwrite(filename, frame)
+            cap.release()
 
     def createListOfImageNames(self, directoryName, objectName):
         list = []
