@@ -1,6 +1,6 @@
 import random 
 import sys
-sys.path.insert(0, '/path/to/Constellation/src/modules/Arithmetic_Toolkit')
+sys.path.insert(0, '../src/modules/Arithmetic_Toolkit')
 from Linear_Algebra import Vectors
 import math
 
@@ -60,34 +60,7 @@ def predict(input, network):
 	return feed_forward(network, input)[-1]
 
 def main():
-
-	# full training set
-	inputs = [square1, square2, square3, square4, circle1]
-	# training set labels
-	# [square,circle]
-	targets = [[1,0],[1,0],[1,0],[1,0],[0,1]]
-
-	random.seed(0)
-	input_size = 100
-	num_hidden = 10
-	output_size = 2
-
-	hidden_layer1 = [[random.random() for __ in range(input_size+1)]
-					for __ in range(output_size)]
-
-	hidden_layer2 = [[random.random() for __ in range(input_size+1)]
-					for __ in range(output_size)]
-
-	output_layer = [[random.random() for __ in range(num_hidden+1)]
-					for __ in range(output_size)]
-
-	network = [hidden_layer1,hidden_layer2,output_layer]
-
-	for __ in range(50000):
-		for input_vector, target_vector in zip(inputs, targets):
-			backpropagate(network, input_vector, target_vector)
-
-	print(predict(inputs[4], network))
+	print("not implemented")
 
 if __name__ == "__main__":
 	main()
