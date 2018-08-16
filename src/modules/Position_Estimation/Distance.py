@@ -8,4 +8,4 @@ class DistanceEstimator:
 		t = Trainer()
 		imageTemplateList = t.createListOfImageTemplates("dot", dotImagesPath)
 		return getMatchingPoints(imagePath, imageTemplateList, 0.7)
-	def 
+	def get nearest 
