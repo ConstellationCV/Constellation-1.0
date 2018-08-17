@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(0, '../src/modules/Arithmetic_Toolkit')
 from Linear_Algebra import Vectors
+from collections import Counter
 
 class KNN():
 	"""docstring for KNN"""
@@ -20,10 +21,11 @@ class KNN():
 		if num_winners == 1: # unique winner, so return it
 			return winner
 		else:
-			return majority_vote(labels[:-1]) # try again with the k-1 nearest
+			return self.majority_vote(labels[:-1]) # try again with the k-1 nearest
 
 	def knn_classify(self, k, labeled_points, new_point):
 		"""each labeled point should be a pair (point, label)"""
-		by_distance = sorted(labeled_points, key=lambda (point, _): distance(point, new_point))
+		v = Vectors()
+		by_distance = sorted(labeled_points, key=lambda (point, _): abs(point-new_point))
 		k_nearest_labels = [label for _, label in by_distance[:k]]
-		return majority_vote(k_nearest_labels)
+		return self.majority_vote(k_nearest_labels)

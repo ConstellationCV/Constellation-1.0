@@ -3,9 +3,11 @@ sys.path.insert(0, '../src/modules/Feature_Extractor')
 from Loc_Extractor import Extractor
 from Train import Trainer
 sys.path.insert(0, '../src/modules/Prediction_Models')
-from Train import Trainer
+from KNearestNeighbors import KNN
 sys.path.insert(0, '../src/modules/Arithmetic_Toolkit')
 from Linear_Algebra import Vectors
+import pandas as pd
+import numpy as np
 
 class DistanceEstimator:
 	def getListOfDotCoords(self, imagePath, dotImagesPath):
@@ -25,18 +27,41 @@ class DistanceEstimator:
 
 	def getPtsByDistance(self, list, center):
 		v=Vectors()
-		return sorted(list, key=lambda (point): v.distance(point, center))
+		return sorted(list, key=lambda(point): v.distance(point, center))
 
 	def getNearestDot(self, imagePath, dotImagesPath,objectCoords):
 		return min(self.getPtsByDistance(self.getListOfDotCoords(imagePath, dotImagesPath),objectCoords))
 
 	def getDistanceBWDots(self, imagePath, dotImagesPath, objectCoords):
 		by_distance = self.getPtsByDistance(self.getListOfDotCoords(imagePath, dotImagesPath),objectCoords)
-		print(by_distance)
 		firstDot = min(by_distance)
 		by_distance.remove(firstDot)
 		secondDot =  min(by_distance)
-		print firstDot
-		print secondDot
 		v = Vectors()
 		return v.distance(firstDot, secondDot)
+
+	def classify(self, distance):
+		pointsList = []
+		df = pd.read_csv('../datasets/PtsDistance.csv')
+		for index, row in df.iterrows():
+			tempPoint = []
+			tempPoint.append(row[0])
+			tempPoint.append(row[1])
+			pointsList.append(tempPoint)
+		knn = KNN()
+		return knn.knn_classify(4, pointsList, distance)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

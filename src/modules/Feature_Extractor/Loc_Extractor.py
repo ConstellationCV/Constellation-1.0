@@ -22,7 +22,8 @@ class Extractor:
 		try:
 			return self.findMiddle(self.findMiddle(self.getMatchingPoints(imagePath,templateList,confidenceThreshold)))
 		except Exception as e:
-			raise ValueError('Cannot match object anywhere in image')
+			raise e
+			#raise ValueError('Cannot match object anywhere in image')
 		
 	def findMiddle(self, input_list):
 		middle = float(len(input_list))/2
