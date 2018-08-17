@@ -12,5 +12,6 @@ print cubeCoords
 de = DistanceEstimator()
 #print(de.getListOfDotCoords('../data/imageDots.png', 'dot_pics'))
 
-print(de.getNearestDot('../data/imageDots.png', 'dot_pics',cubeCoords))
+#print(de.getNearestDot('../data/imageDots.png', 'dot_pics',cubeCoords))
 #print len(de.getListOfDotCoords('../data/imageDots.png', 'dot_pics'))
+print(de.getDistanceBWDots('../data/imageDots.png', 'dot_pics',cubeCoords))

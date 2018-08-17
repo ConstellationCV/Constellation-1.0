@@ -20,7 +20,7 @@ class Extractor:
 
 	def getObjectLoc(self, imagePath, templateList, confidenceThreshold):
 		try:
-			return self.findMiddle(min(self.getMatchingPoints(imagePath,templateList,confidenceThreshold)))
+			return self.findMiddle(self.findMiddle(self.getMatchingPoints(imagePath,templateList,confidenceThreshold)))
 		except Exception as e:
 			raise ValueError('Cannot match object anywhere in image')
 		

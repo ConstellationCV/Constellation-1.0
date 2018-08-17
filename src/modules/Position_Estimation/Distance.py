@@ -29,3 +29,14 @@ class DistanceEstimator:
 
 	def getNearestDot(self, imagePath, dotImagesPath,objectCoords):
 		return min(self.getPtsByDistance(self.getListOfDotCoords(imagePath, dotImagesPath),objectCoords))
+
+	def getDistanceBWDots(self, imagePath, dotImagesPath, objectCoords):
+		by_distance = self.getPtsByDistance(self.getListOfDotCoords(imagePath, dotImagesPath),objectCoords)
+		print(by_distance)
+		firstDot = min(by_distance)
+		by_distance.remove(firstDot)
+		secondDot =  min(by_distance)
+		print firstDot
+		print secondDot
+		v = Vectors()
+		return v.distance(firstDot, secondDot)
