@@ -1,10 +1,11 @@
+import math
 class Vectors:
 	import math
 	def vector_add(v,w):
 		"""adds corresponding elements"""
 		return [v_i + w_i for v_i, w_i in zip(v,w)]
 
-	def vector_subtract(v,w):
+	def vector_subtract(self,v,w):
 		"""subtracts corresponding elements"""
 		return [v_i - w_i for v_i,w_i in zip(v,w)]
 
@@ -29,21 +30,21 @@ class Vectors:
 		"""v_1 * w_1 + ... v_n * w_n"""
 		return sum(v_i * w_i for v_i,w_i in zip(v,w))
 
-	def sum_of_squares(v):
+	def sum_of_squares(self,v):
 		"""v_1 * v_1 + ... + v_n * v_n"""
-		return dot(v,v)
+		return self.dot(v,v)
 
-	def magnitude(v):
+	def magnitude(self,v):
 		"""magnitude(length) of vector v"""
-		return math.sqrt(sum_of_squares(v))
+		return math.sqrt(self.sum_of_squares(v))
 
-	def squared_distance(v,w):
+	def squared_distance(self, v,w):
 		"""((v_1 - w_1)^2) + ... ((v_n - w_n)^2)"""
-		return sum_of_squares(vector_subtract(v,w))
+		return self.sum_of_squares(self.vector_subtract(v,w))
 
-	def distance(v,w):
+	def distance(self, v,w):
 		"""distance between vectors 1 and 2"""
-		return math.sqrt(squared_distance(v,w))
+		return math.sqrt(self.squared_distance(v,w))
 
 class Matrices:
 	def shape(A):
